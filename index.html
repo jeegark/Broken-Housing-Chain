@@ -176,6 +176,15 @@
     padding-top:12px;margin-top:6px;
   }
   .num{font-variant-numeric:tabular-nums; cursor:help; border-bottom:1px dotted var(--muted);}
+  .gdv-break{border-top:1px dashed var(--line);margin-top:12px;padding-top:10px;}
+  .gdv-break > div{display:grid;grid-template-columns:1fr auto auto;gap:4px 16px;align-items:baseline;padding:4px 0;font-size:15px;color:var(--ink-soft);}
+  .gdv-break em{font-style:normal;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+  .gdv-break .per{font-size:14px;color:var(--ink-soft);font-variant-numeric:tabular-nums;text-align:right;min-width:54px;}
+  .gdv-break b{font-family:var(--serif);color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right;min-width:62px;}
+  .gdv-break .gdv-headrow{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding-bottom:2px;}
+  .gdv-break .gdv-headrow .per,.gdv-break .gdv-headrow .tot{font-size:11px;color:var(--muted);text-align:right;}
+  .gdv-break .gdv-total{border-top:1px solid var(--line);margin-top:5px;padding-top:8px;}
+  .gdv-break .gdv-total b{font-size:18px;}
   .step .card.green{border-left-color:var(--green);}
   .step .card.red{border-left-color:var(--red);}
   .step .card.amber{border-left-color:var(--amber);}
@@ -465,8 +474,14 @@
     <div class="step" data-act="2" data-step="0">
       <div class="card green">
         <h3>The money coming in</h3>
-        <p>Sell all 35 flats — 28 at full market price, 7 as "affordable" at a discount — and the scheme raises <b><span class="num" data-tip="28 market units @ £480k = £13.44m + 4 social rent @ £561.6k + 3 intermediate @ £972k = £14,973,600 Gross Development Value">about £15 million</span></b>. This is the whole pot. Everything else comes out of it.</p>
-        <p class="stat">Gross Development Value: <b>~£15.0m</b></p>
+        <p>Sell all 35 flats — 28 at full market price, 7 as "affordable" at a discount — and the scheme raises <b>about £15 million</b>. This is the whole pot. But the mix matters: the 28 market flats bring in the lion's share, while the 7 affordable flats sell for a fraction of that.</p>
+        <div class="gdv-break">
+          <div class="gdv-headrow"><span>&nbsp;</span><span class="per">Price each</span><span class="tot">Total</span></div>
+          <div><span>28 market flats</span><span class="per num" data-tip="Average market sale price per flat">£480k</span><b class="num" data-tip="28 × £480,000 = £13,440,000">~£13.4m</b></div>
+          <div><span>4 social-rent flats <em>(affordable)</em></span><span class="per num" data-tip="720 sq ft @ £195/sq ft = £140,400 per flat">£140k</span><b class="num" data-tip="4 × £140,400 = £561,600">~£0.6m</b></div>
+          <div><span>3 intermediate flats <em>(affordable)</em></span><span class="per num" data-tip="720 sq ft @ £450/sq ft = £324,000 per flat">£324k</span><b class="num" data-tip="3 × £324,000 = £972,000">~£1.0m</b></div>
+          <div class="gdv-total"><span>Total expected sales <em>(GDV)</em></span><span class="per"></span><b class="num" data-tip="Gross Development Value = £14,973,600">~£15.0m</b></div>
+        </div>
       </div>
     </div>
     <div class="step" data-act="2" data-step="1">
