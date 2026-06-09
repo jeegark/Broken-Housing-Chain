@@ -132,9 +132,9 @@
     background:var(--stage);
     color:var(--stage-ink);
     border-radius:18px;
-    padding:30px 30px 26px;
+    padding:26px 28px 24px;
     box-shadow:0 30px 60px -30px rgba(0,0,0,.45);
-    min-height:62vh;
+    min-height:54vh;
     display:flex;
     flex-direction:column;
     overflow:hidden;
@@ -145,11 +145,11 @@
     margin-bottom:4px;
   }
   .graphic-head{
-    font-family:var(--serif);font-size:22px;color:#fff;margin:0 0 18px;line-height:1.15;min-height:52px;
+    font-family:var(--serif);font-size:22px;color:#fff;margin:0 0 16px;line-height:1.15;min-height:40px;
   }
   .steps{display:flex;flex-direction:column;}
   .step{
-    min-height:78vh;
+    min-height:58vh;
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -239,15 +239,15 @@
 
   /* ---------- ACT 3 GRAPHIC: shrinking pool ---------- */
   .pool{flex:1;display:flex;flex-direction:column;justify-content:center;gap:0;}
-  .buyer-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin:6px 0 20px;}
-  .buyer{aspect-ratio:1;border-radius:4px;background:#3a3a46;transition:background .5s, opacity .5s;}
+  .buyer-grid{display:grid;grid-template-columns:repeat(14,1fr);gap:5px;margin:4px 0 14px;}
+  .buyer{aspect-ratio:1;border-radius:3px;background:#3a3a46;transition:background .5s, opacity .5s;}
   .buyer.gone{background:#241f24;opacity:.32;}
   .buyer.stay{background:var(--green);}
   .pool-readout{text-align:center;}
-  .pool-readout .pr-big{font-family:var(--serif);font-size:46px;color:#fff;line-height:1;}
-  .pool-readout .pr-lab{font-size:13px;color:#b9b9c4;margin-top:6px;}
-  .factors{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-direction:column;gap:8px;}
-  .factors li{font-size:13px;color:#cfcfd8;display:flex;gap:10px;align-items:center;opacity:.3;transition:opacity .5s;}
+  .pool-readout .pr-big{font-family:var(--serif);font-size:40px;color:#fff;line-height:1;}
+  .pool-readout .pr-lab{font-size:13px;color:#b9b9c4;margin-top:5px;}
+  .factors{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-direction:column;gap:6px;}
+  .factors li{font-size:12.5px;color:#cfcfd8;display:flex;gap:10px;align-items:center;opacity:.3;transition:opacity .5s;}
   .factors li.on{opacity:1;}
   .factors li::before{content:"−";color:var(--red);font-weight:700;font-family:var(--serif);font-size:18px;}
 
@@ -319,13 +319,17 @@
   .sb-preset.active{border-color:var(--amber);background:var(--amber-soft);box-shadow:inset 0 0 0 1px var(--amber);}
   .sb-split{margin-top:14px;font-size:13.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
   .sb-readouts{border-top:1px solid var(--line);padding-top:6px;}
-  .sb-row{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--line);font-size:15.5px;color:var(--ink-soft);}
-  .sb-row span{display:inline-flex;align-items:center;gap:8px;}
-  .sb-row .dot{width:9px;height:9px;border-radius:2px;flex:none;}
-  .sb-row b{font-family:var(--serif);font-size:21px;color:var(--ink);font-variant-numeric:tabular-nums;}
-  .sb-row-margin b{color:var(--blue);}
+  .sb-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink-soft);}
+  .sb-row span{display:inline-flex;align-items:baseline;gap:7px;}
+  .sb-row .dot{width:9px;height:9px;border-radius:2px;flex:none;position:relative;top:1px;}
+  .sb-row b{font-family:var(--serif);font-size:20px;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .sb-row-sub{border-top:2px solid var(--ink-soft);margin-top:-1px;}
+  .sb-row-sub > span{font-weight:700;color:var(--ink);}
+  .sb-row-sub b{color:var(--ink);}
+  #sb-margin-note{font-style:normal;font-size:12px;color:var(--muted);text-transform:none;letter-spacing:0;}
+  #sb-margin-note.short{color:var(--red);font-weight:600;}
   .sb-row-bench{color:var(--muted);}
-  .sb-row-bench b{color:var(--muted);font-size:18px;}
+  .sb-row-bench b{color:var(--muted);font-size:17px;}
   .sb-verdict{border-radius:11px;padding:15px 18px;text-align:center;font-size:15px;line-height:1.4;transition:.25s;}
   .sb-verdict .v-head{font-family:var(--serif);font-size:21px;display:block;margin-bottom:2px;}
   .sb-verdict.good{background:var(--green-soft);color:#0f5a47;border:1px solid var(--green);}
@@ -515,7 +519,7 @@
     <div class="step" data-act="2" data-step="5">
       <div class="card red">
         <h3>And that's the <i>generous</i> version</h3>
-        <p>This already assumes only <b>20% affordable housing</b> — an emergency setting. Apply London's standard <span class="num" data-tip="London Plan policy H5 sets a 35% affordable housing threshold">35% target</span> and the scheme is "structurally unworkable." The only way the maths balances is with <b>zero affordable homes.</b></p>
+        <p>This already assumes only <b>20% affordable housing</b> — an emergency setting. Apply London's standard <span class="num" data-tip="London Plan policy H5 sets a 35% affordable housing threshold">35% target</span> and the scheme is "structurally unworkable."</p>
       </div>
     </div>
   </div>
@@ -556,7 +560,9 @@
       </div>
       <div class="sb-readouts">
         <div class="sb-row"><span><i class="dot" style="background:#1f8a70"></i>Expected money in (sales)</span><b id="sb-gdv">£15.0m</b></div>
-        <div class="sb-row sb-row-margin"><span><i class="dot" style="background:#2f5d8a"></i>Margin for risk set aside</span><b id="sb-margin">£2.6m</b></div>
+        <div class="sb-row"><span><i class="dot" style="background:#c1432e"></i>Build &amp; sell costs</span><b id="sb-costs">−£11.7m</b></div>
+        <div class="sb-row sb-row-sub"><span>Money left for margin + land</span><b id="sb-pot">£3.3m</b></div>
+        <div class="sb-row sb-row-margin"><span><i class="dot" style="background:#2f5d8a"></i>Margin for risk <em id="sb-margin-note">(17.5%)</em></span><b id="sb-margin">£2.6m</b></div>
         <div class="sb-row sb-row-land"><span><i class="dot" style="background:#cf8a00"></i>Left for the land</span><b id="sb-residual">£0.7m</b></div>
         <div class="sb-row sb-row-bench"><span>The land costs</span><b>£1.15m</b></div>
       </div>
@@ -567,9 +573,9 @@
 
 <!-- ============ ACT 3 ============ -->
 <section class="band tight">
-  <div class="act-tag"><span class="act-num">3</span> The third break</div>
-  <h2>The developer can't get out.</h2>
-  <p>Imagine the first two breaks are somehow fixed and the flats actually get built. There's one problem left, and it's the one no spreadsheet shows: <b>who is left to buy them?</b></p>
+  <div class="act-tag"><span class="act-num">3</span> The third break · affordability</div>
+  <h2>The developer can't sell all the flats.</h2>
+  <p>Imagine the first two breaks are somehow fixed and the flats actually get built. There's one problem left, and it's an <b>affordability break</b> — the one no viability spreadsheet shows: with the props that made buying affordable now gone, <b>who can still afford to buy them?</b></p>
 </section>
 
 <div class="scrolly" id="scrolly-3">
@@ -644,7 +650,7 @@
     <div class="link-item">
       <div class="link-icon">3</div>
       <div>
-        <h3>The developer can't get out</h3>
+        <h3>The developer can't sell all the flats</h3>
         <p>With the props for first-time buyers gone, selling the finished flats is uncertain — so developers need a bigger safety cushion, which leaves even less to pay for the land, widening the very gap that started the problem.</p>
       </div>
     </div>
@@ -886,7 +892,10 @@
   var sbMixEl   = document.getElementById('sb-mix');
   var sbSplit   = document.getElementById('sb-split');
   var sbGdvEl   = document.getElementById('sb-gdv');
+  var sbCostsEl = document.getElementById('sb-costs');
+  var sbPotEl   = document.getElementById('sb-pot');
   var sbMarginEl= document.getElementById('sb-margin');
+  var sbMarginNote = document.getElementById('sb-margin-note');
   var sbResEl   = document.getElementById('sb-residual');
   var sbVerdict = document.getElementById('sb-verdict');
   var sbPresets = document.querySelectorAll('.sb-preset');
@@ -904,11 +913,19 @@
     var marketGDV = market*SB.market;
     var gdv = marketGDV + social*SB.social + inter*SB.inter;
     var salesMkt = SB.salesRate*marketGDV;
-    var margin = SB.marginRate*gdv;
     var costs = SB.construction+SB.finance+SB.fees+SB.cil+salesMkt;
-    var residual = gdv - costs - margin;
+    var pot = gdv - costs;                  // money left after build & sale costs
+    var reqMargin = SB.marginRate*gdv;      // the 17.5% the bank requires for risk
+    // The pot must cover the risk margin first (the bank's condition), then the land.
+    // If the pot can't even fund the full margin, the margin is eaten into and nothing
+    // is left for land. If sales don't cover costs, it's an outright loss.
+    var margin, land;
+    if(pot <= 0){ margin = 0; land = 0; }
+    else if(pot < reqMargin){ margin = pot; land = 0; }
+    else { margin = reqMargin; land = pot - reqMargin; }
     return {pct:pct,aff:aff,social:social,inter:inter,market:market,
-            gdv:gdv,salesMkt:salesMkt,margin:margin,residual:residual};
+            gdv:gdv,salesMkt:salesMkt,costs:costs,pot:pot,
+            reqMargin:reqMargin,margin:margin,land:land};
   }
   function sbRender(pct){
     var d = sbCompute(pct);
@@ -930,7 +947,7 @@
       {short:'CIL/106',   color:'#c1432e', val:SB.cil/M},
       {short:'Mktg',      color:'#c1432e', val:d.salesMkt/M},
       {short:'Risk',      color:'#2f5d8a', val:d.margin/M},
-      {short:'Land left', color:'#cf8a00', type:'residual', val:d.residual/M}
+      {short:'Land left', color:'#cf8a00', type:'residual', val:d.land/M}
     ];
     var running=d.gdv/M;
     for(var i=0;i<segs.length;i++){
@@ -950,7 +967,7 @@
       // residual colour reflects the verdict
       var col=s.color;
       if(s.type==='residual'){
-        col = d.residual>=SB.benchmark ? '#1f8a70' : (d.residual>=0 ? '#cf8a00' : '#c1432e');
+        col = d.land>=SB.benchmark ? '#1f8a70' : (d.land>0 ? '#cf8a00' : '#c1432e');
       }
       bar.style.background=col;
       sbChart.appendChild(bar);
@@ -971,27 +988,61 @@
     var ll=document.createElement('span'); ll.className='ll'; ll.textContent='Land costs £1.15m';
     line.appendChild(ll); sbChart.appendChild(line);
 
+    // ghost: where a full 17.5% risk margin WOULD reach when it can't be funded
+    if(d.pot>0 && d.margin < d.reqMargin - 1000){
+      var gi=6, gx=gi*(bw+gap);
+      var gTop = baseline - d.pot*px;                       // top = level after costs
+      var gBot = baseline - (d.pot - d.reqMargin)*px;       // bottom = full margin (dips below 0)
+      if(gBot > plotH) gBot = plotH;                        // keep inside the chart
+      var ghost=document.createElement('div');
+      ghost.style.cssText='position:absolute;border:1.5px dashed rgba(150,176,205,.9);border-radius:3px;left:'+gx+'px;width:'+bw+'px;top:'+gTop+'px;height:'+Math.max(3,(gBot-gTop))+'px;pointer-events:none;';
+      sbChart.appendChild(ghost);
+      var glab=document.createElement('div');
+      glab.textContent='17.5% needed';
+      glab.style.cssText='position:absolute;font-size:9px;color:#9ab0c8;left:'+(gx-6)+'px;width:'+(bw+12)+'px;text-align:center;top:'+(Math.min(gBot,plotH)+1)+'px;pointer-events:none;';
+      sbChart.appendChild(glab);
+    }
+
     // ----- readouts -----
     sbPctEl.textContent = d.pct+'%';
     sbMixEl.textContent = d.aff+' of 35 homes affordable';
     sbSplit.textContent = d.market+' market · '+d.social+' social rent · '+d.inter+' intermediate';
     sbGdvEl.textContent = fmtM(d.gdv);
+    sbCostsEl.textContent = '−'+fmtM(d.costs);
+    sbPotEl.textContent = fmtM(d.pot);
+    sbPotEl.style.color = d.pot>0 ? 'var(--ink)' : 'var(--red)';
     sbMarginEl.textContent = fmtM(d.margin);
-    sbResEl.textContent = fmtM(d.residual);
-    sbResEl.style.color = d.residual>=SB.benchmark ? 'var(--green)' : (d.residual>=0 ? 'var(--amber)' : 'var(--red)');
+    var capped = d.pot>0 && d.margin < d.reqMargin - 1000;
+    if(capped){
+      sbMarginNote.textContent = 'needs '+fmtM(d.reqMargin);
+      sbMarginNote.className = 'short';
+      sbMarginEl.style.color = 'var(--red)';
+    } else if(d.margin <= 0){
+      sbMarginNote.textContent = 'unfunded';
+      sbMarginNote.className = 'short';
+      sbMarginEl.style.color = 'var(--red)';
+    } else {
+      sbMarginNote.textContent = '(17.5%)';
+      sbMarginNote.className = '';
+      sbMarginEl.style.color = 'var(--blue)';
+    }
+    sbResEl.textContent = fmtM(d.land);
+    sbResEl.style.color = d.land>=SB.benchmark ? 'var(--green)' : (d.land>0 ? 'var(--amber)' : 'var(--red)');
     sbHead.textContent = 'At '+d.pct+'% affordable';
 
     // ----- verdict -----
-    var gapV = d.residual - SB.benchmark;
-    if(d.residual>=SB.benchmark){
-      sbVerdict.className='sb-verdict good';
-      sbVerdict.innerHTML='<span class="v-head">Viable ✓</span>'+fmtM(gapV)+' to spare above the land price — the homes get built.';
-    } else if(d.residual>=0){
-      sbVerdict.className='sb-verdict short';
-      sbVerdict.innerHTML='<span class="v-head">Falls short ✗</span>Only '+fmtM(d.residual)+' left, but the land costs £1.15m — short by '+fmtM(-gapV)+'.';
-    } else {
+    if(d.pot <= 0){
       sbVerdict.className='sb-verdict loss';
-      sbVerdict.innerHTML='<span class="v-head">A loss ✗</span>The scheme loses '+fmtM(-d.residual)+' before paying a penny for the land. It will not be built.';
+      sbVerdict.innerHTML='<span class="v-head">A loss ✗</span>The flats don’t sell for enough to cover the '+fmtM(d.costs)+' of build &amp; sale costs — before any risk margin or land.';
+    } else if(d.pot < d.reqMargin){
+      sbVerdict.className='sb-verdict loss';
+      sbVerdict.innerHTML='<span class="v-head">Unviable ✗</span>The risk margin is squeezed to '+fmtM(d.margin)+' — below the '+fmtM(d.reqMargin)+' the bank needs to cover overruns — and nothing is left for the land.';
+    } else if(d.land < SB.benchmark){
+      sbVerdict.className='sb-verdict short';
+      sbVerdict.innerHTML='<span class="v-head">Falls short ✗</span>Even with a full risk margin, only '+fmtM(d.land)+' is left for land that costs £1.15m — short by '+fmtM(SB.benchmark-d.land)+'.';
+    } else {
+      sbVerdict.className='sb-verdict good';
+      sbVerdict.innerHTML='<span class="v-head">Viable ✓</span>A full risk margin, and '+fmtM(d.land)+' for the £1.15m land — '+fmtM(d.land-SB.benchmark)+' to spare.';
     }
     // slider track fill + preset highlight
     sbRange.style.background='linear-gradient(90deg,var(--amber) 0%,var(--amber) '+d.pct+'%,#d8d4c8 '+d.pct+'%,#d8d4c8 100%)';
