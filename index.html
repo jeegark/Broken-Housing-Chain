@@ -991,8 +991,8 @@
     // ghost: where a full 17.5% risk margin WOULD reach when it can't be funded
     if(d.pot>0 && d.margin < d.reqMargin - 1000){
       var gi=6, gx=gi*(bw+gap);
-      var gTop = baseline - d.pot*px;                       // top = level after costs
-      var gBot = baseline - (d.pot - d.reqMargin)*px;       // bottom = full margin (dips below 0)
+      var gTop = baseline - (d.pot/M)*px;                   // top = level after costs (£m)
+      var gBot = baseline - ((d.pot - d.reqMargin)/M)*px;   // bottom = full margin (dips below 0)
       if(gBot > plotH) gBot = plotH;                        // keep inside the chart
       var ghost=document.createElement('div');
       ghost.style.cssText='position:absolute;border:1.5px dashed rgba(150,176,205,.9);border-radius:3px;left:'+gx+'px;width:'+bw+'px;top:'+gTop+'px;height:'+Math.max(3,(gBot-gTop))+'px;pointer-events:none;';
