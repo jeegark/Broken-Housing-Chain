@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Broken Chain — Why brownfield homes don't get built</title>
+<style>
+  :root{
+    --paper:#f6f4ee;
+    --paper-2:#efece3;
+    --ink:#1b1b22;
+    --ink-soft:#4a4a55;
+    --muted:#8a8a94;
+    --line:#d8d4c8;
+    --green:#1f8a70;     /* value in */
+    --green-soft:#cfe7df;
+    --red:#c1432e;       /* erosion / shortfall */
+    --red-soft:#f0d3cc;
+    --amber:#cf8a00;     /* the threshold / land value */
+    --amber-soft:#f3e3bf;
+    --blue:#2f5d8a;      /* profit / structural */
+    --blue-soft:#d3e0ec;
+    --stage:#16161d;
+    --stage-ink:#f4f2ec;
+    --serif:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans:-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .kicker{
+    font-family:var(--sans);
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:12px;
+    font-weight:700;
+    color:var(--red);
+  }
+  h1,h2,h3{font-family:var(--serif); font-weight:600; line-height:1.12; letter-spacing:-0.01em;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:8vh 24px 10vh;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .wrap{max-width:820px; position:relative; z-index:2;}
+  .hero h1{
+    font-size:clamp(38px, 7vw, 86px);
+    margin:.15em 0 .35em;
+  }
+  .hero .sub{
+    font-size:clamp(17px,2.2vw,22px);
+    color:var(--ink-soft);
+    max-width:620px;
+    margin:0 auto 2.2em;
+  }
+  .hero .sub b{color:var(--ink);}
+  .scrollcue{
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .scrollcue .arrow{
+    width:22px;height:22px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
+    transform:rotate(45deg);
+    animation:bob 1.8s infinite ease-in-out;
+  }
+  @keyframes bob{0%,100%{transform:rotate(45deg) translate(0,0);}50%{transform:rotate(45deg) translate(4px,4px);}}
+  /* faint skyline silhouette */
+  .skyline{position:absolute;bottom:0;left:0;width:100%;height:200px;opacity:.06;z-index:1;}
+
+  /* ---------- SECTION INTRO BANDS ---------- */
+  .band{
+    max-width:760px;
+    margin:0 auto;
+    padding:14vh 24px;
+  }
+  .band.tight{padding:9vh 24px;}
+  .band h2{font-size:clamp(28px,4.5vw,46px); margin:.2em 0 .5em;}
+  .band p{font-size:clamp(17px,2vw,20px); color:var(--ink-soft); margin:0 0 1.1em;}
+  .band p b{color:var(--ink);}
+
+  .act-tag{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:18px;
+  }
+  .act-num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:30px;height:30px;border-radius:50%;
+    background:var(--ink);color:var(--paper);font-family:var(--serif);font-size:15px;
+  }
+
+  /* ---------- SCROLLY ---------- */
+  .scrolly{
+    position:relative;
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:40px;
+  }
+  .scrolly .graphic{
+    position:sticky;
+    top:0;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .graphic-inner{
+    width:100%;
+    max-width:520px;
+    background:var(--stage);
+    color:var(--stage-ink);
+    border-radius:18px;
+    padding:30px 30px 26px;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,.45);
+    min-height:62vh;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  .graphic-title{
+    font-family:var(--sans);
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9a9aa6;
+    margin-bottom:4px;
+  }
+  .graphic-head{
+    font-family:var(--serif);font-size:22px;color:#fff;margin:0 0 18px;line-height:1.15;min-height:52px;
+  }
+  .steps{display:flex;flex-direction:column;}
+  .step{
+    min-height:78vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .step .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-left:4px solid var(--ink);
+    border-radius:10px;
+    padding:24px 26px;
+    box-shadow:0 12px 30px -22px rgba(0,0,0,.4);
+    transition:opacity .4s ease, transform .4s ease;
+    opacity:.35;
+    transform:translateY(8px);
+  }
+  .step.is-active .card{opacity:1; transform:none;}
+  .step .card h3{font-size:23px;margin:0 0 10px;}
+  .step .card p{margin:0 0 10px;font-size:16.5px;color:var(--ink-soft);}
+  .step .card p:last-child{margin-bottom:0;}
+  .step .card .stat{
+    font-family:var(--serif);
+    font-size:15px;color:var(--ink);
+    border-top:1px dashed var(--line);
+    padding-top:12px;margin-top:6px;
+  }
+  .num{font-variant-numeric:tabular-nums; cursor:help; border-bottom:1px dotted var(--muted);}
+  .step .card.green{border-left-color:var(--green);}
+  .step .card.red{border-left-color:var(--red);}
+  .step .card.amber{border-left-color:var(--amber);}
+  .step .card.blue{border-left-color:var(--blue);}
+
+  /* ---------- ACT 1 GRAPHIC: two scales ---------- */
+  .scale-wrap{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;}
+  .scale-row{}
+  .scale-label{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:#b9b9c4;margin-bottom:7px;}
+  .scale-label .v{font-family:var(--serif);font-size:20px;color:#fff;font-variant-numeric:tabular-nums;}
+  .bar-track{height:34px;background:rgba(255,255,255,.07);border-radius:7px;position:relative;overflow:hidden;}
+  .bar-fill{height:100%;width:0;border-radius:7px;transition:width 1.1s cubic-bezier(.16,1,.3,1);}
+  .bar-fill.gla{background:linear-gradient(90deg,#2f5d8a,#5a86b5);}
+  .bar-fill.need{background:linear-gradient(90deg,#cf8a00,#e6a92e);}
+  .gap-callout{
+    margin-top:14px;text-align:center;
+    background:rgba(193,67,46,.16);
+    border:1px solid rgba(193,67,46,.5);
+    border-radius:9px;padding:12px;
+    opacity:0;transform:translateY(6px);transition:.5s;
+  }
+  .gap-callout.show{opacity:1;transform:none;}
+  .gap-callout .g-lab{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#e9a08f;}
+  .gap-callout .g-val{font-family:var(--serif);font-size:30px;color:#fff;}
+
+  /* ---------- ACT 2 GRAPHIC: waterfall ---------- */
+  .wf{flex:1;display:flex;flex-direction:column;justify-content:flex-end;}
+  .wf-chart{position:relative;flex:1;min-height:300px;margin-bottom:6px;}
+  .wf-bar{
+    position:absolute;
+    border-radius:3px;
+    transition:opacity .6s ease, transform .6s ease;
+    opacity:0;transform:translateY(14px);
+    display:flex;align-items:flex-start;justify-content:center;
+  }
+  .wf-bar.show{opacity:1;transform:none;}
+  .wf-axlab{
+    position:absolute;font-size:9px;line-height:1.1;color:#b9b9c4;
+    text-align:center;white-space:nowrap;bottom:0;
+    opacity:0;transition:opacity .6s ease;
+  }
+  .wf-axlab.show{opacity:1;}
+  .wf-line{
+    position:absolute;left:0;width:100%;height:0;border-top:2px dashed var(--amber);
+    opacity:0;transition:opacity .6s;
+  }
+  .wf-line.show{opacity:1;}
+  .wf-line .ll{position:absolute;left:0;top:-16px;font-size:11px;color:var(--amber);background:var(--stage);padding:0 5px;border-radius:3px;}
+  .wf-legend{display:flex;flex-wrap:wrap;gap:10px 16px;font-size:11px;color:#b9b9c4;margin-top:10px;border-top:1px solid rgba(255,255,255,.1);padding-top:12px;}
+  .wf-legend span{display:inline-flex;align-items:center;gap:6px;}
+  .dot{width:10px;height:10px;border-radius:2px;display:inline-block;}
+
+  /* ---------- ACT 3 GRAPHIC: shrinking pool ---------- */
+  .pool{flex:1;display:flex;flex-direction:column;justify-content:center;gap:0;}
+  .buyer-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin:6px 0 20px;}
+  .buyer{aspect-ratio:1;border-radius:4px;background:#3a3a46;transition:background .5s, opacity .5s;}
+  .buyer.gone{background:#241f24;opacity:.32;}
+  .buyer.stay{background:var(--green);}
+  .pool-readout{text-align:center;}
+  .pool-readout .pr-big{font-family:var(--serif);font-size:46px;color:#fff;line-height:1;}
+  .pool-readout .pr-lab{font-size:13px;color:#b9b9c4;margin-top:6px;}
+  .factors{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-direction:column;gap:8px;}
+  .factors li{font-size:13px;color:#cfcfd8;display:flex;gap:10px;align-items:center;opacity:.3;transition:opacity .5s;}
+  .factors li.on{opacity:1;}
+  .factors li::before{content:"−";color:var(--red);font-weight:700;font-family:var(--serif);font-size:18px;}
+
+  /* ---------- CONCLUSION ---------- */
+  .chain{
+    max-width:860px;margin:0 auto;padding:10vh 24px;
+  }
+  .chain h2{font-size:clamp(28px,4.5vw,46px);text-align:center;margin-bottom:.2em;}
+  .chain .lead{text-align:center;color:var(--ink-soft);font-size:20px;max-width:600px;margin:0 auto 60px;}
+  .links{display:flex;flex-direction:column;gap:0;}
+  .link-item{
+    display:grid;grid-template-columns:54px 1fr;gap:22px;align-items:start;padding:22px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .link-item:last-child{border-bottom:none;}
+  .link-icon{
+    width:54px;height:54px;border-radius:50%;
+    background:var(--red-soft);color:var(--red);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-size:24px;font-weight:600;
+  }
+  .link-item h3{font-size:21px;margin:6px 0 6px;}
+  .link-item p{margin:0;color:var(--ink-soft);font-size:16.5px;}
+  .closer{
+    background:var(--stage);color:var(--stage-ink);
+    text-align:center;padding:14vh 24px;
+  }
+  .closer .wrap{max-width:680px;margin:0 auto;}
+  .closer h2{font-size:clamp(30px,5vw,52px);color:#fff;margin-bottom:.4em;}
+  .closer p{color:#c4c4cf;font-size:19px;}
+  .closer .pullquote{
+    font-family:var(--serif);font-style:italic;font-size:clamp(22px,3.2vw,30px);
+    color:#fff;border-left:3px solid var(--amber);padding-left:22px;text-align:left;margin:36px 0;line-height:1.4;
+  }
+
+  .credit{
+    background:var(--paper-2);
+    text-align:center;padding:50px 24px 70px;color:var(--muted);font-size:14px;
+  }
+  .credit a{color:var(--ink-soft);}
+  .credit .big{font-family:var(--serif);font-size:18px;color:var(--ink-soft);margin-bottom:8px;}
+
+  /* tooltip */
+  .tip{position:fixed;z-index:99;background:var(--ink);color:#fff;font-size:13px;padding:7px 11px;border-radius:6px;pointer-events:none;opacity:0;transition:opacity .15s;font-family:var(--sans);box-shadow:0 6px 20px -6px rgba(0,0,0,.5);max-width:240px;}
+  .tip.show{opacity:1;}
+
+  .progress{position:fixed;top:0;left:0;height:3px;background:var(--red);width:0;z-index:100;transition:width .1s;}
+
+  /* ---------- SANDBOX ---------- */
+  .sandbox{background:var(--paper-2);padding:13vh 24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .sandbox-intro{max-width:740px;margin:0 auto 44px;text-align:center;}
+  .sandbox-intro h2{font-size:clamp(28px,4.5vw,46px);margin:.2em 0 .45em;}
+  .sandbox-intro p{color:var(--ink-soft);font-size:clamp(17px,2vw,20px);margin:0;}
+  .sandbox-intro p b{color:var(--ink);}
+  .sandbox-panel{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:stretch;}
+  .sb-graphic{background:var(--stage);color:var(--stage-ink);border-radius:18px;padding:26px 26px 22px;box-shadow:0 30px 60px -30px rgba(0,0,0,.45);}
+  .sb-chart{position:relative;height:340px;margin-bottom:8px;}
+  .sb-controls{display:flex;flex-direction:column;justify-content:center;gap:22px;}
+  .sb-slider-top{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;}
+  .sb-mix-pct{font-family:var(--serif);font-size:46px;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .sb-mix-sub{font-size:15px;color:var(--muted);}
+  .sb-range{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:6px;background:linear-gradient(90deg,var(--amber) 0%,var(--amber) 20%,#d8d4c8 20%,#d8d4c8 100%);outline:none;cursor:pointer;}
+  .sb-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;background:var(--ink);border:3px solid var(--paper);box-shadow:0 2px 6px rgba(0,0,0,.3);cursor:pointer;}
+  .sb-range::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--ink);border:3px solid var(--paper);cursor:pointer;}
+  .sb-presets{display:flex;gap:8px;margin-top:14px;}
+  .sb-preset{flex:1;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px 6px;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;line-height:1.2;transition:.15s;}
+  .sb-preset small{display:block;font-weight:400;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+  .sb-preset:hover{border-color:var(--amber);background:var(--amber-soft);}
+  .sb-preset.active{border-color:var(--amber);background:var(--amber-soft);box-shadow:inset 0 0 0 1px var(--amber);}
+  .sb-split{margin-top:14px;font-size:13.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
+  .sb-readouts{border-top:1px solid var(--line);padding-top:6px;}
+  .sb-row{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--line);font-size:15.5px;color:var(--ink-soft);}
+  .sb-row span{display:inline-flex;align-items:center;gap:8px;}
+  .sb-row .dot{width:9px;height:9px;border-radius:2px;flex:none;}
+  .sb-row b{font-family:var(--serif);font-size:21px;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .sb-row-margin b{color:var(--blue);}
+  .sb-row-bench{color:var(--muted);}
+  .sb-row-bench b{color:var(--muted);font-size:18px;}
+  .sb-verdict{border-radius:11px;padding:15px 18px;text-align:center;font-size:15px;line-height:1.4;transition:.25s;}
+  .sb-verdict .v-head{font-family:var(--serif);font-size:21px;display:block;margin-bottom:2px;}
+  .sb-verdict.good{background:var(--green-soft);color:#0f5a47;border:1px solid var(--green);}
+  .sb-verdict.short{background:var(--amber-soft);color:#7a5200;border:1px solid var(--amber);}
+  .sb-verdict.loss{background:var(--red-soft);color:#8f2d1c;border:1px solid var(--red);}
+
+  /* mobile */
+  @media(max-width:860px){
+    .scrolly{grid-template-columns:1fr;gap:0;}
+    .scrolly{padding:0 16px;}
+    .scrolly .graphic{position:sticky;top:0;height:46vh;align-items:flex-start;padding-top:10px;z-index:5;background:var(--paper);}
+    .graphic-inner{min-height:0;max-width:none;padding:16px;height:100%;}
+    .graphic-head{font-size:16px;min-height:0;margin-bottom:10px;}
+    /* first card must clear the pinned graphic; later cards sit in the lower band */
+    .steps{padding-top:8px;}
+    .step{min-height:64vh;padding:0;justify-content:flex-end;padding-bottom:8vh;}
+    .step .card{opacity:1;transform:none;padding:18px 20px;}
+    .step .card h3{font-size:20px;}
+    .step .card p{font-size:15.5px;}
+    .wf-chart{min-height:180px;}
+    .wf-legend{font-size:10px;gap:6px 10px;}
+    .wf-axlab{font-size:8px;}
+    .buyer-grid{gap:5px;margin:2px 0 12px;}
+    .pool-readout .pr-big{font-size:34px;}
+    .factors li{font-size:11.5px;}
+    .pr-big{font-size:36px;}
+    .sandbox-panel{grid-template-columns:1fr;gap:22px;}
+    .sb-chart{height:280px;}
+    .sb-graphic{padding:18px;}
+    .sb-mix-pct{font-size:38px;}
+    .sb-preset{font-size:12.5px;padding:7px 4px;}
+    .sb-preset small{font-size:9.5px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="tip" id="tip"></div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <svg class="skyline" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
+    <rect x="0" y="120" width="80" height="80"/><rect x="90" y="80" width="70" height="120"/>
+    <rect x="170" y="140" width="60" height="60"/><rect x="240" y="60" width="90" height="140"/>
+    <rect x="340" y="110" width="70" height="90"/><rect x="420" y="40" width="60" height="160"/>
+    <rect x="490" y="130" width="80" height="70"/><rect x="580" y="90" width="70" height="110"/>
+    <rect x="660" y="150" width="60" height="50"/><rect x="730" y="70" width="90" height="130"/>
+    <rect x="830" y="120" width="70" height="80"/><rect x="910" y="50" width="60" height="150"/>
+    <rect x="980" y="130" width="80" height="70"/><rect x="1070" y="95" width="70" height="105"/>
+  </svg>
+  <div class="wrap">
+    <div class="kicker">A brownfield viability story · London</div>
+    <h1>The Broken Chain</h1>
+    <p class="sub">A half-acre car workshop in south-east London could become <b>35 new homes</b>. The maths says it won't. Here's exactly where the chain snaps — link by link.</p>
+    <div class="scrollcue"><span>Scroll to begin</span><span class="arrow"></span></div>
+  </div>
+</header>
+
+<!-- ============ SETUP ============ -->
+<section class="band">
+  <div class="kicker" style="color:var(--ink-soft)">The site</div>
+  <h2>Meet Meridian Autos.</h2>
+  <p>It's a working car-repair garage on half an acre, eight minutes' walk from a Zone 2/3 station. As a running business it's worth about <b><span class="num" data-tip="£1,000,000 — the current value of the business as a working garage">£1 million</span></b>. On paper, it's a planner's dream: exactly the kind of brownfield plot the London Plan wants turned into housing.</p>
+  <p>A developer draws up a scheme: <b>35 flats</b>, four to six storeys, averaging <span class="num" data-tip="720 sq ft average per home">720 sq ft</span> each. Build cost runs to <b><span class="num" data-tip="£335 per sq ft build cost + £500,000 of abnormals = £8,942,000">about £8.9 million</span></b> once you add £500k of "abnormals" — the cleanup, contamination and groundwork that come free with any old industrial site.</p>
+  <p>So far, so good. Now watch the chain break in <b>three places</b>.</p>
+</section>
+
+<!-- ============ ACT 1 ============ -->
+<section class="band tight">
+  <div class="act-tag"><span class="act-num">1</span> The first break</div>
+  <h2>The land won't trade.</h2>
+  <p>Before a single brick is laid, the developer has to buy the site. And the price the rulebook allows is not the price the owners can afford to accept.</p>
+</section>
+
+<div class="scrolly" id="scrolly-1">
+  <div class="graphic">
+    <div class="graphic-inner">
+      <div class="graphic-title">Land value</div>
+      <div class="graphic-head" id="g1-head">What the rules say the land is worth</div>
+      <div class="scale-wrap">
+        <div class="scale-row">
+          <div class="scale-label"><span>What the rulebook allows <span style="color:#5a86b5">(GLA benchmark)</span></span><span class="v" id="g1-gla-v">£0.0m</span></div>
+          <div class="bar-track"><div class="bar-fill gla" id="g1-gla"></div></div>
+        </div>
+        <div class="scale-row">
+          <div class="scale-label"><span>What the owners need to walk away</span><span class="v" id="g1-need-v">£0.0m</span></div>
+          <div class="bar-track"><div class="bar-fill need" id="g1-need"></div></div>
+        </div>
+        <div class="gap-callout" id="g1-gap">
+          <div class="g-lab">The gap that stops the deal</div>
+          <div class="g-val">~£150k–£190k+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="steps">
+    <div class="step" data-act="1" data-step="0">
+      <div class="card blue">
+        <h3>The rulebook's number</h3>
+        <p>Planning uses a formula called <b>Existing Use Value plus a premium</b>. Take what the site is worth today (<span class="num" data-tip="Existing Use Value = £1,000,000">£1m</span>), add a <span class="num" data-tip="15% premium = £150,000">15% sweetener</span>, and you get the most the developer is "allowed" to pay.</p>
+        <p class="stat">GLA benchmark land value: <b>£1.15m</b></p>
+      </div>
+    </div>
+    <div class="step" data-act="1" data-step="1">
+      <div class="card amber">
+        <h3>The owners' real number</h3>
+        <p>But David and Sarah, who own the garage, don't see a formula — they see a tax bill and a life change. Capital gains tax takes <span class="num" data-tip="CGT on the £800,000 gain at 20% = £160,000">~£160k</span>. Professional fees take <span class="num" data-tip="Agent, solicitor, accountant ≈ £30,000">£30k</span>. Closing or moving the business costs <span class="num" data-tip="Business relocation / closure: £100,000–£150,000">£100–150k</span>.</p>
+        <p class="stat">To walk away whole, they need <b>£1.29m–£1.34m</b></p>
+      </div>
+    </div>
+    <div class="step" data-act="1" data-step="2">
+      <div class="card red">
+        <h3>So they say no — and here's why</h3>
+        <p>Sell at the rulebook's £1.15m and the taxman, the professional fees and the cost of shutting up shop swallow roughly a third of it. David and Sarah would be left with about <b><span class="num" data-tip="£1.15m less ~£290k–£340k of CGT, fees and relocation leaves roughly £810k–£860k in hand">£0.8m in hand</span></b> — <b>less than the £1m their business is already worth</b> to them as a running garage, and they'd have given up their livelihood on top.</p>
+        <p>Why give up something worth £1m to walk away with less? They don't. The "brownfield opportunity" stays a car workshop, and <b>nothing is built at all.</b></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ACT 2 ============ -->
+<section class="band tight">
+  <div class="act-tag"><span class="act-num">2</span> The second break</div>
+  <h2>The numbers don't add up.</h2>
+  <p>Suppose the owners give in and sell at the rulebook price of <b><span class="num" data-tip="GLA benchmark land value £1,150,000">£1.15m</span></b>. Now the developer has to make the scheme pay for itself. Watch the money pour in — and drain away.</p>
+</section>
+
+<div class="scrolly" id="scrolly-2">
+  <div class="graphic">
+    <div class="graphic-inner">
+      <div class="graphic-title">The viability waterfall</div>
+      <div class="graphic-head" id="g2-head">Every home sold raises money…</div>
+      <div class="wf">
+        <div class="wf-chart" id="wf-chart"></div>
+        <div class="wf-legend">
+          <span><i class="dot" style="background:#1f8a70"></i>Expected money in (sales)</span>
+          <span><i class="dot" style="background:#c1432e"></i>Costs out</span>
+          <span><i class="dot" style="background:#2f5d8a"></i>Margin for risk</span>
+          <span><i class="dot" style="background:#cf8a00"></i>What's left for land</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="steps">
+    <div class="step" data-act="2" data-step="0">
+      <div class="card green">
+        <h3>The money coming in</h3>
+        <p>Sell all 35 flats — 28 at full market price, 7 as "affordable" at a discount — and the scheme raises <b><span class="num" data-tip="28 market units @ £480k = £13.44m + 4 social rent @ £561.6k + 3 intermediate @ £972k = £14,973,600 Gross Development Value">about £15 million</span></b>. This is the whole pot. Everything else comes out of it.</p>
+        <p class="stat">Gross Development Value: <b>~£15.0m</b></p>
+      </div>
+    </div>
+    <div class="step" data-act="2" data-step="1">
+      <div class="card red">
+        <h3>Building it eats most of it</h3>
+        <p>Construction and the brownfield cleanup take <b><span class="num" data-tip="Build at £335/sq ft + £500,000 abnormals = £8,942,000">~£8.9m</span></b> straight off the top — nearly 60% of the pot gone before anything else is paid.</p>
+        <p class="stat">Remaining: ~£6.0m</p>
+      </div>
+    </div>
+    <div class="step" data-act="2" data-step="2">
+      <div class="card red">
+        <h3>Then the rest of the costs</h3>
+        <p>Borrowing the money costs <span class="num" data-tip="Finance at 8.5% = £759,070">~£0.76m</span>. Architects, engineers and consultants take <span class="num" data-tip="Professional fees at 12% of build = £1,073,040">~£1.07m</span>. Council levies — <span class="num" data-tip="CIL (Community Infrastructure Levy) + Section 106 obligations = £500,000">CIL and Section 106</span> — take <span class="num" data-tip="CIL + Section 106 = £500,000">£0.5m</span>. Selling the flats takes another <span class="num" data-tip="Sales & marketing at 3% of market GDV = £403,200">~£0.4m</span>.</p>
+        <p class="stat">Total costs so far: <b>~£11.7m</b></p>
+      </div>
+    </div>
+    <div class="step" data-act="2" data-step="3">
+      <div class="card blue">
+        <h3>A margin for what could go wrong</h3>
+        <p>No bank funds a build with no safety net. Roughly <b><span class="num" data-tip="Risk margin at 17.5% of GDV = £2,620,380">£2.6m</span></b> — about 17.5% — has to be set aside as a <b>margin for risk</b>: the cushion that absorbs the hit if build costs overrun, materials jump, the job runs late, or the flats sell for less than hoped. Without it, one bad surprise turns the whole scheme into a loss.</p>
+        <p class="stat">Margin for risk set aside: <b>~£2.6m</b></p>
+      </div>
+    </div>
+    <div class="step" data-act="2" data-step="4">
+      <div class="card amber">
+        <h3>What's left for the land</h3>
+        <p>After everything, the cash left to actually <i>buy the site</i> is just <b><span class="num" data-tip="Residual Land Value = £675,910">~£0.68m</span></b>. But the land was supposed to cost <span class="num" data-tip="GLA benchmark land value £1,150,000">£1.15m</span>.</p>
+        <p class="stat" style="color:var(--red)">Shortfall: <b>~£0.47m below what the land costs</b></p>
+      </div>
+    </div>
+    <div class="step" data-act="2" data-step="5">
+      <div class="card red">
+        <h3>And that's the <i>generous</i> version</h3>
+        <p>This already assumes only <b>20% affordable housing</b> — an emergency setting. Apply London's standard <span class="num" data-tip="London Plan policy H5 sets a 35% affordable housing threshold">35% target</span> and the scheme is "structurally unworkable." The only way the maths balances is with <b>zero affordable homes.</b></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SANDBOX: affordable-housing dial ============ -->
+<section class="sandbox" id="sandbox">
+  <div class="sandbox-intro">
+    <div class="kicker" style="color:var(--amber)">Try it yourself</div>
+    <h2>Move the dial. Watch viability break.</h2>
+    <p>The single biggest lever is how many of the 35 homes must be sold cheaply as "affordable". Drag the slider: the more affordable homes required, the less <b>expected money comes in</b> — and the less is left to pay for the land.</p>
+  </div>
+  <div class="sandbox-panel">
+    <div class="sb-graphic">
+      <div class="graphic-title">The viability waterfall — live</div>
+      <div class="graphic-head" id="sb-head">At 20% affordable</div>
+      <div class="sb-chart" id="sb-chart"></div>
+      <div class="wf-legend">
+        <span><i class="dot" style="background:#1f8a70"></i>Expected money in (sales)</span>
+        <span><i class="dot" style="background:#c1432e"></i>Costs out</span>
+        <span><i class="dot" style="background:#2f5d8a"></i>Margin for risk</span>
+        <span><i class="dot" style="background:#cf8a00"></i>What's left for land</span>
+      </div>
+    </div>
+    <div class="sb-controls">
+      <div class="sb-slider-block">
+        <div class="sb-slider-top">
+          <span class="sb-mix-pct" id="sb-pct">20%</span>
+          <span class="sb-mix-sub" id="sb-mix">affordable homes</span>
+        </div>
+        <input type="range" class="sb-range" id="sb-range" min="0" max="100" step="5" value="20" aria-label="Percentage of affordable homes">
+        <div class="sb-presets">
+          <button class="sb-preset" data-val="0">0% <small>best case</small></button>
+          <button class="sb-preset" data-val="20">20% <small>emergency</small></button>
+          <button class="sb-preset" data-val="35">35% <small>London standard</small></button>
+        </div>
+        <div class="sb-split" id="sb-split">28 market · 4 social rent · 3 intermediate</div>
+      </div>
+      <div class="sb-readouts">
+        <div class="sb-row"><span><i class="dot" style="background:#1f8a70"></i>Expected money in (sales)</span><b id="sb-gdv">£15.0m</b></div>
+        <div class="sb-row sb-row-margin"><span><i class="dot" style="background:#2f5d8a"></i>Margin for risk set aside</span><b id="sb-margin">£2.6m</b></div>
+        <div class="sb-row sb-row-land"><span><i class="dot" style="background:#cf8a00"></i>Left for the land</span><b id="sb-residual">£0.7m</b></div>
+        <div class="sb-row sb-row-bench"><span>The land costs</span><b>£1.15m</b></div>
+      </div>
+      <div class="sb-verdict" id="sb-verdict"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACT 3 ============ -->
+<section class="band tight">
+  <div class="act-tag"><span class="act-num">3</span> The third break</div>
+  <h2>The developer can't get out.</h2>
+  <p>Imagine the first two breaks are somehow fixed and the flats actually get built. There's one problem left, and it's the one no spreadsheet shows: <b>who is left to buy them?</b></p>
+</section>
+
+<div class="scrolly" id="scrolly-3">
+  <div class="graphic">
+    <div class="graphic-inner">
+      <div class="graphic-title">The buyer pool</div>
+      <div class="graphic-head" id="g3-head">Who can actually buy a new-build flat?</div>
+      <div class="pool">
+        <div class="buyer-grid" id="buyer-grid"></div>
+        <div class="pool-readout">
+          <div class="pr-big" id="pool-pct">Everyone</div>
+          <div class="pr-lab" id="pool-lab">who could afford the flat — before the squeeze</div>
+        </div>
+        <ul class="factors" id="factors">
+          <li data-f="0">Help to Buy ended in March 2023 — and was never replaced</li>
+          <li data-f="1">Full stamp duty now bites above £250,000</li>
+          <li data-f="2">Mortgage rates stay stubbornly high</li>
+          <li data-f="3">First-time buyer relief caps out in high-value areas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="steps">
+    <div class="step" data-act="3" data-step="0">
+      <div class="card">
+        <h3>The exit nobody models</h3>
+        <p>A viability appraisal assumes every flat sells, on time, at the price on the sheet. Reality is a shrinking crowd of people who can afford a new-build flat in inner London.</p>
+      </div>
+    </div>
+    <div class="step" data-act="3" data-step="1">
+      <div class="card red">
+        <h3>The props get pulled away</h3>
+        <p>Help to Buy — which underwrote a huge share of new-build sales — <b>ended in 2023</b> with nothing in its place. Stamp duty, high mortgage rates and capped first-time-buyer relief each chip away at the crowd.</p>
+      </div>
+    </div>
+    <div class="step" data-act="3" data-step="2">
+      <div class="card red">
+        <h3>The pool shrinks</h3>
+        <p>Each pressure removes more buyers who could have stretched to a £480k flat. The crowd that's left is far smaller — and far less certain.</p>
+      </div>
+    </div>
+    <div class="step" data-act="3" data-step="3">
+      <div class="card amber">
+        <h3>And that loops straight back to the land</h3>
+        <p>Here's the knock-on effect. The less certain a developer is that the flats will actually sell, the <b>bigger the safety cushion they need</b> before they'll risk building at all — the same way you'd demand a steeper discount before taking a real gamble.</p>
+        <p>But that cushion comes out of the same pot. A bigger cushion means even <b>less money left over to pay for the land.</b></p>
+        <p class="stat" style="color:var(--red)">So the price they can afford to offer for the site drops <b>even lower</b> — making Problem 1 worse, not better.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CONCLUSION ============ -->
+<section class="chain">
+  <h2>Three breaks, one chain.</h2>
+  <p class="lead">Each link fails on its own — and fixing just one doesn't restart the others.</p>
+  <div class="links">
+    <div class="link-item">
+      <div class="link-icon">1</div>
+      <div>
+        <h3>The land won't trade</h3>
+        <p>The benchmark price ignores tax, business value and moving costs — so owners never sell, and the site never starts.</p>
+      </div>
+    </div>
+    <div class="link-item">
+      <div class="link-icon">2</div>
+      <div>
+        <h3>The numbers don't add up</h3>
+        <p>Even at the rulebook land price, construction, finance, fees, levies and a margin for risk leave too little to buy the site — and any real affordable-housing requirement makes it worse.</p>
+      </div>
+    </div>
+    <div class="link-item">
+      <div class="link-icon">3</div>
+      <div>
+        <h3>The developer can't get out</h3>
+        <p>With the props for first-time buyers gone, selling the finished flats is uncertain — so developers need a bigger safety cushion, which leaves even less to pay for the land, widening the very gap that started the problem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closer">
+  <div class="wrap">
+    <div class="kicker" style="color:var(--amber)">The takeaway</div>
+    <h2>Pull one lever and nothing moves.</h2>
+    <div class="pullquote">"These all need to be in lockstep to make the system work again."</div>
+    <p>Land pricing, building costs and buyer demand are not three separate problems. They're three links in one chain — and a chain only works when every link holds. That's why even free land wouldn't, on its own, get these 35 homes built.</p>
+  </div>
+</section>
+
+<footer class="credit">
+  <div class="big">An interactive retelling of a brownfield viability case study.</div>
+  <div>Based on <a href="https://propviews.co.uk/blog/the-brownfield-emergency-a-tale-of-a-car-repair-workshop-and-the-broken-development-chain/" target="_blank" rel="noopener">"The Brownfield Emergency: A Tale of a Car Repair Workshop and the Broken Development Chain"</a> — propviews.co.uk</div>
+  <div style="margin-top:10px;font-size:12.5px;">Figures are drawn from the original analysis and rounded for clarity. Hover any underlined number for the precise figure. The site and owners are illustrative.</div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- progress bar ---------- */
+  var progress = document.getElementById('progress');
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    progress.style.width = (max>0 ? (h.scrollTop/max*100) : 0) + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* ---------- tooltips on .num ---------- */
+  var tip = document.getElementById('tip');
+  function showTip(e){
+    var t = e.currentTarget.getAttribute('data-tip');
+    if(!t) return;
+    tip.textContent = t;
+    tip.classList.add('show');
+    moveTip(e);
+  }
+  function moveTip(e){
+    var x = (e.touches ? e.touches[0].clientX : e.clientX);
+    var y = (e.touches ? e.touches[0].clientY : e.clientY);
+    var w = tip.offsetWidth, vw = window.innerWidth;
+    var left = Math.min(x+14, vw - w - 12);
+    tip.style.left = Math.max(12,left)+'px';
+    tip.style.top = (y+18)+'px';
+  }
+  function hideTip(){ tip.classList.remove('show'); }
+  Array.prototype.forEach.call(document.querySelectorAll('.num'), function(el){
+    el.addEventListener('mouseenter', showTip);
+    el.addEventListener('mousemove', moveTip);
+    el.addEventListener('mouseleave', hideTip);
+    el.addEventListener('click', function(e){ showTip(e); setTimeout(hideTip, 2600); });
+  });
+
+  /* ---------- ACT 1: scales ---------- */
+  // scale: 0 .. 1.6m maps to 0..100%
+  var SC1 = 1.6;
+  var g1gla = document.getElementById('g1-gla');
+  var g1need = document.getElementById('g1-need');
+  var g1glaV = document.getElementById('g1-gla-v');
+  var g1needV = document.getElementById('g1-need-v');
+  var g1gap = document.getElementById('g1-gap');
+  var g1head = document.getElementById('g1-head');
+  function act1(step){
+    if(step>=0){
+      g1gla.style.width = (1.15/SC1*100)+'%';
+      g1glaV.textContent = '£1.15m';
+      g1head.textContent = step===0 ? 'What the rules say the land is worth' : g1head.textContent;
+    }
+    if(step>=1){
+      g1need.style.width = (1.34/SC1*100)+'%';
+      g1needV.textContent = '£1.34m';
+      g1head.textContent = 'The owners need more than the rules allow';
+    } else {
+      g1need.style.width = '0%'; g1needV.textContent='£0.0m';
+    }
+    if(step>=2){ g1gap.classList.add('show'); g1head.textContent='The deal that never happens'; }
+    else { g1gap.classList.remove('show'); }
+    if(step===0){ g1head.textContent='What the rules say the land is worth'; }
+  }
+
+  /* ---------- ACT 2: waterfall ---------- */
+  var GDV = 14.97;
+  // ordered erosion segments after GDV
+  var WF = [
+    {key:'gdv',   short:'Sales in',  val:GDV,   color:'#1f8a70', type:'base'},
+    {key:'build', short:'Build',     val:8.942, color:'#c1432e'},
+    {key:'fin',   short:'Finance',   val:0.759, color:'#c1432e'},
+    {key:'fees',  short:'Fees',      val:1.073, color:'#c1432e'},
+    {key:'cil',   short:'CIL/106',   val:0.50,  color:'#c1432e'},
+    {key:'sales', short:'Mktg',      val:0.403, color:'#c1432e'},
+    {key:'profit',short:'Risk',      val:2.620, color:'#2f5d8a'},
+    {key:'land',  short:'Land left', val:0.676, color:'#cf8a00', type:'residual'}
+  ];
+  var wfChart = document.getElementById('wf-chart');
+  var g2head = document.getElementById('g2-head');
+  var wfBuilt = false;
+  var barEls = {}, axEls = {}, lineEl=null;
+  var AXIS_H = 30; // reserved space at bottom for column labels
+
+  function buildWF(){
+    if(wfBuilt) return;
+    wfChart.innerHTML='';
+    barEls = {}; axEls = {};
+    var W = wfChart.clientWidth;
+    var H = wfChart.clientHeight;
+    var plotH = H - AXIS_H;          // bars + line live above the axis row
+    var baseline = plotH;            // y of value 0
+    var n = WF.length;
+    var gap = 7;
+    var bw = (W - gap*(n-1)) / n;
+    var pxPer = plotH / GDV;
+    var running = GDV;
+    for(var i=0;i<WF.length;i++){
+      var seg = WF[i];
+      var el = document.createElement('div');
+      el.className='wf-bar';
+      var x = i*(bw+gap);
+      var hgt, topVal;
+      if(seg.type==='base'){
+        hgt = seg.val*pxPer; topVal = seg.val;
+        running = GDV;
+      } else if(seg.type==='residual'){
+        hgt = seg.val*pxPer; topVal = seg.val;
+      } else {
+        running -= seg.val;
+        hgt = seg.val*pxPer; topVal = running + seg.val;
+      }
+      var top = baseline - topVal*pxPer;
+      el.style.left = x+'px';
+      el.style.width = bw+'px';
+      el.style.top = top+'px';
+      el.style.height = Math.max(3,hgt)+'px';
+      el.style.background = seg.color;
+      wfChart.appendChild(el);
+      barEls[seg.key]=el;
+      // fixed axis label centered under the column
+      var ax = document.createElement('div');
+      ax.className='wf-axlab';
+      ax.textContent = seg.short;
+      ax.style.left = x+'px';
+      ax.style.width = bw+'px';
+      wfChart.appendChild(ax);
+      axEls[seg.key]=ax;
+    }
+    // land benchmark line at 1.15m
+    lineEl = document.createElement('div');
+    lineEl.className='wf-line';
+    lineEl.style.top = (baseline - 1.15*pxPer)+'px';
+    var ll = document.createElement('span'); ll.className='ll'; ll.textContent='Land costs £1.15m';
+    lineEl.appendChild(ll);
+    wfChart.appendChild(lineEl);
+    wfBuilt = true;
+  }
+
+  function act2(step){
+    buildWF();
+    var heads = [
+      'Every home sold raises money…',
+      '…but building it eats most of it',
+      '…then finance, fees and levies bite',
+      '…and a margin for risk is set aside',
+      'What’s left can’t pay for the land',
+      'And this is the generous version'
+    ];
+    g2head.textContent = heads[Math.min(step,heads.length-1)] || heads[0];
+    var show = {gdv:0, build:1, fin:2, fees:2, cil:2, sales:2, profit:3, land:4};
+    for(var k in barEls){
+      if(step >= show[k]){ barEls[k].classList.add('show'); axEls[k].classList.add('show'); }
+      else { barEls[k].classList.remove('show'); axEls[k].classList.remove('show'); }
+    }
+    if(step>=4){ lineEl.classList.add('show'); } else { lineEl.classList.remove('show'); }
+  }
+
+  /* ---------- ACT 3: buyer pool ---------- */
+  var grid = document.getElementById('buyer-grid');
+  var poolPct = document.getElementById('pool-pct');
+  var poolLab = document.getElementById('pool-lab');
+  var factors = document.getElementById('factors');
+  var g3head = document.getElementById('g3-head');
+  var BUYERS=100, gridBuilt=false;
+  function buildGrid(){
+    if(gridBuilt) return;
+    for(var i=0;i<BUYERS;i++){
+      var b=document.createElement('div'); b.className='buyer'; grid.appendChild(b);
+    }
+    gridBuilt=true;
+  }
+  function act3(step){
+    buildGrid();
+    var cells = grid.children;
+    var bigWord = ['Everyone','Everyone','Far fewer','Far fewer'];
+    var labs = [
+      'who could afford the flat — before the squeeze',
+      'who could afford the flat — before the squeeze',
+      'can still stretch to a new-build flat',
+      '— and even they hesitate'
+    ];
+    var heads=[
+      'Who can actually buy a new-build flat?',
+      'The supports are being pulled away',
+      'The pool of buyers shrinks',
+      'And that loops back to the land'
+    ];
+    // Qualitative only — the source doesn't quantify the contraction, so this is
+    // an illustrative "thinning crowd", scattered so it reads as attrition, not a measured %.
+    var shrunk = step>=2;
+    for(var i=0;i<cells.length;i++){
+      if(!shrunk){ cells[i].className='buyer stay'; }
+      else {
+        var keep = ((i*37+13)%100) < 45;
+        cells[i].className = 'buyer ' + (keep ? 'stay' : 'gone');
+      }
+    }
+    poolPct.textContent = bigWord[Math.min(step,3)];
+    poolLab.textContent = labs[Math.min(step,3)];
+    g3head.textContent = heads[Math.min(step,3)];
+    var fItems = factors.querySelectorAll('li');
+    fItems.forEach(function(li){ li.classList.toggle('on', step>=1); });
+  }
+
+  /* ---------- SANDBOX: live affordable-housing dial ---------- */
+  // Model constants (reproduce the blog exactly at 20% affordable)
+  var SB = {
+    units:35, market:480000, social:140400, inter:324000,
+    construction:8942000, finance:759070, fees:1073040, cil:500000,
+    salesRate:0.03, marginRate:0.175, benchmark:1150000
+  };
+  var sbChart   = document.getElementById('sb-chart');
+  var sbHead    = document.getElementById('sb-head');
+  var sbRange   = document.getElementById('sb-range');
+  var sbPctEl   = document.getElementById('sb-pct');
+  var sbMixEl   = document.getElementById('sb-mix');
+  var sbSplit   = document.getElementById('sb-split');
+  var sbGdvEl   = document.getElementById('sb-gdv');
+  var sbMarginEl= document.getElementById('sb-margin');
+  var sbResEl   = document.getElementById('sb-residual');
+  var sbVerdict = document.getElementById('sb-verdict');
+  var sbPresets = document.querySelectorAll('.sb-preset');
+
+  function fmtM(v){ // v in £ ; returns e.g. £1.2m or −£0.4m
+    var m = v/1e6;
+    var s = (m<0?'−£':'£') + Math.abs(m).toFixed(1) + 'm';
+    return s;
+  }
+  function sbCompute(pct){
+    var aff = Math.round(SB.units * pct/100);
+    var social = Math.round(aff * 4/7);
+    var inter = aff - social;
+    var market = SB.units - aff;
+    var marketGDV = market*SB.market;
+    var gdv = marketGDV + social*SB.social + inter*SB.inter;
+    var salesMkt = SB.salesRate*marketGDV;
+    var margin = SB.marginRate*gdv;
+    var costs = SB.construction+SB.finance+SB.fees+SB.cil+salesMkt;
+    var residual = gdv - costs - margin;
+    return {pct:pct,aff:aff,social:social,inter:inter,market:market,
+            gdv:gdv,salesMkt:salesMkt,margin:margin,residual:residual};
+  }
+  function sbRender(pct){
+    var d = sbCompute(pct);
+    // ----- waterfall bars -----
+    sbChart.innerHTML='';
+    var W=sbChart.clientWidth, H=sbChart.clientHeight;
+    if(W===0){ return; }
+    var AX=28, plotH=H-AX;
+    var baseline = plotH*0.75;            // y of value 0 (leaves ~25% below for negatives)
+    var maxPos=17, px=baseline/maxPos;    // px per £m, positive region
+    var negCap=(plotH-baseline)/px;       // £m of negative room
+    var n=8, gap=7, bw=(W-gap*(n-1))/n;
+    var M=1e6;
+    var segs=[
+      {short:'Sales in',  color:'#1f8a70', type:'base', val:d.gdv/M},
+      {short:'Build',     color:'#c1432e', val:SB.construction/M},
+      {short:'Finance',   color:'#c1432e', val:SB.finance/M},
+      {short:'Fees',      color:'#c1432e', val:SB.fees/M},
+      {short:'CIL/106',   color:'#c1432e', val:SB.cil/M},
+      {short:'Mktg',      color:'#c1432e', val:d.salesMkt/M},
+      {short:'Risk',      color:'#2f5d8a', val:d.margin/M},
+      {short:'Land left', color:'#cf8a00', type:'residual', val:d.residual/M}
+    ];
+    var running=d.gdv/M;
+    for(var i=0;i<segs.length;i++){
+      var s=segs[i], topVal, botVal;
+      if(s.type==='base'){ topVal=s.val; botVal=0; running=s.val; }
+      else if(s.type==='residual'){ topVal=Math.max(0,s.val); botVal=Math.min(0,s.val); }
+      else { topVal=running; botVal=running-s.val; running=botVal; }
+      if(botVal < -negCap) botVal=-negCap;          // clamp deep negatives to the floor
+      var yTop=baseline - topVal*px;
+      var h=Math.max(2,(topVal-botVal)*px);
+      var bar=document.createElement('div');
+      bar.className='wf-bar show';
+      bar.style.left=(i*(bw+gap))+'px';
+      bar.style.width=bw+'px';
+      bar.style.top=yTop+'px';
+      bar.style.height=h+'px';
+      // residual colour reflects the verdict
+      var col=s.color;
+      if(s.type==='residual'){
+        col = d.residual>=SB.benchmark ? '#1f8a70' : (d.residual>=0 ? '#cf8a00' : '#c1432e');
+      }
+      bar.style.background=col;
+      sbChart.appendChild(bar);
+      var ax=document.createElement('div');
+      ax.className='wf-axlab show';
+      ax.textContent=s.short;
+      ax.style.left=(i*(bw+gap))+'px';
+      ax.style.width=bw+'px';
+      sbChart.appendChild(ax);
+    }
+    // zero baseline + benchmark line
+    var zero=document.createElement('div');
+    zero.style.cssText='position:absolute;left:0;width:100%;height:0;border-top:1px solid rgba(255,255,255,.25);top:'+baseline+'px;';
+    sbChart.appendChild(zero);
+    var line=document.createElement('div');
+    line.className='wf-line show';
+    line.style.top=(baseline - SB.benchmark/M*px)+'px';
+    var ll=document.createElement('span'); ll.className='ll'; ll.textContent='Land costs £1.15m';
+    line.appendChild(ll); sbChart.appendChild(line);
+
+    // ----- readouts -----
+    sbPctEl.textContent = d.pct+'%';
+    sbMixEl.textContent = d.aff+' of 35 homes affordable';
+    sbSplit.textContent = d.market+' market · '+d.social+' social rent · '+d.inter+' intermediate';
+    sbGdvEl.textContent = fmtM(d.gdv);
+    sbMarginEl.textContent = fmtM(d.margin);
+    sbResEl.textContent = fmtM(d.residual);
+    sbResEl.style.color = d.residual>=SB.benchmark ? 'var(--green)' : (d.residual>=0 ? 'var(--amber)' : 'var(--red)');
+    sbHead.textContent = 'At '+d.pct+'% affordable';
+
+    // ----- verdict -----
+    var gapV = d.residual - SB.benchmark;
+    if(d.residual>=SB.benchmark){
+      sbVerdict.className='sb-verdict good';
+      sbVerdict.innerHTML='<span class="v-head">Viable ✓</span>'+fmtM(gapV)+' to spare above the land price — the homes get built.';
+    } else if(d.residual>=0){
+      sbVerdict.className='sb-verdict short';
+      sbVerdict.innerHTML='<span class="v-head">Falls short ✗</span>Only '+fmtM(d.residual)+' left, but the land costs £1.15m — short by '+fmtM(-gapV)+'.';
+    } else {
+      sbVerdict.className='sb-verdict loss';
+      sbVerdict.innerHTML='<span class="v-head">A loss ✗</span>The scheme loses '+fmtM(-d.residual)+' before paying a penny for the land. It will not be built.';
+    }
+    // slider track fill + preset highlight
+    sbRange.style.background='linear-gradient(90deg,var(--amber) 0%,var(--amber) '+d.pct+'%,#d8d4c8 '+d.pct+'%,#d8d4c8 100%)';
+    sbPresets.forEach(function(b){ b.classList.toggle('active', +b.getAttribute('data-val')===d.pct); });
+  }
+  if(sbRange){
+    sbRange.addEventListener('input', function(){ sbRender(+sbRange.value); });
+    sbPresets.forEach(function(b){
+      b.addEventListener('click', function(){ sbRange.value=b.getAttribute('data-val'); sbRender(+sbRange.value); });
+    });
+  }
+
+  /* ---------- IntersectionObserver wiring ---------- */
+  var dispatch = {1:act1, 2:act2, 3:act3};
+  var lastStep = {1:-1,2:-1,3:-1};
+  function activate(el){
+    var act = +el.getAttribute('data-act');
+    var step = +el.getAttribute('data-step');
+    document.querySelectorAll('.step[data-act="'+act+'"]').forEach(function(s){
+      s.classList.toggle('is-active', s===el);
+    });
+    if(lastStep[act]!==step){ lastStep[act]=step; dispatch[act](step); }
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ activate(e.target); }
+    });
+  }, {rootMargin:'-50% 0px -49% 0px', threshold:0});
+  document.querySelectorAll('.step').forEach(function(s){ io.observe(s); });
+
+  // init first states
+  act1(0); act3(0);
+  if(sbRange){ sbRender(+sbRange.value); }
+
+  /* rebuild waterfalls on resize */
+  var rt;
+  window.addEventListener('resize', function(){
+    clearTimeout(rt);
+    rt=setTimeout(function(){
+      wfBuilt=false; barEls={};
+      if(lastStep[2]>=0){ act2(lastStep[2]); }
+      if(sbRange){ sbRender(+sbRange.value); }
+    },200);
+  });
+})();
+</script>
+</body>
+</html>
